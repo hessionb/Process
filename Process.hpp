@@ -6,50 +6,51 @@
 #include <iostream>
 #include <vector>
 
-#define	PARENT_READ     m_readpipe[0]
-#define	CHILD_WRITE	m_readpipe[1]
-#define CHILD_READ      m_writepipe[0]
-#define PARENT_WRITE	m_writepipe[1]
+#define	PARENT_READ		m_readpipe[0]
+#define	CHILD_WRITE		m_readpipe[1]
+#define	CHILD_READ		m_writepipe[0]
+#define	PARENT_WRITE	m_writepipe[1]
 
-class Process
-{
-public:
-    //The extra bool argument can be used to enable verbose messages
-    Process(const std::vector<char*>&, bool verbose);
-    Process(const std::vector<char*>&);
-    
-    // prevent copying and assignment
-    Process(const Process &p);
-    Process& operator=(const Process &p);
+class Process {
 
-    //Implement a move constructor   
-    Process(Process&& other);
-    Process& operator=(Process&& other);
+	public:
+		 //The extra bool argument can be used to enable verbose messages
+		 Process(const std::vector<char*>&, bool verbose);
+		 Process(const std::vector<char*>&);
+		 
+		 // prevent copying and assignment
+		 Process(const Process &p);
+		 Process& operator=(const Process &p);
 
-    ~Process();
+		 //Implement a move constructor   
+		 Process(Process& other);
+		 Process& operator=(Process& other);
 
-    void write(const std::string&);
-    std::string read();
-    int wait();
-    bool stop();
-    bool resume();
-    int status();
+		 ~Process();
 
-private:
-    bool verbose;
-    std::string m_name;
+		 void write(const std::string&);
+		 std::string read();
+		 int wait();
+		 bool stop();
+		 bool resume();
+		 int status();
 
-    //PID of child process
-    pid_t m_pid;
-    int m_status;
+	private:
+		 bool verbose;
+		 std::string m_name;
 
-    //File descriptors for writing/reading to/from process
-    int m_writepipe[2];
-    int m_readpipe[2];
+		 //PID of child process
+		 pid_t m_pid;
+		 int m_status;
 
-    //File stream to write/read to/from child process
-    FILE* m_pwrite;
-    FILE* m_pread;
+		 //File descriptors for writing/reading to/from process
+		 int m_writepipe[2];
+		 int m_readpipe[2];
+
+		 //File stream to write/read to/from child process
+		 FILE* m_pwrite;
+		 FILE* m_pread;
 };
 
 #endif
+
