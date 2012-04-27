@@ -1,0 +1,12 @@
+README
+
+When the process goes out of the scope, the process object waits for the child
+process to finish before destructing.
+
+1. Yes, it's good use of object-oriented design. 
+
+2. I would not modify anything. To change the destructor, I would let the 
+   programmer extend Process class and create his/her own virtual destructor.
+
+3. The child could notify the parent in its destructor somehow.
+

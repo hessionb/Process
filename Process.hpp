@@ -15,6 +15,7 @@
 class Process {
 
 	public:
+	
 		//The extra bool argument can be used to enable verbose messages
 		Process(const std::vector<std::string>&, bool verbose=false);
 
